@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(mvn:*)",
+      "Bash(java:*)",
+      "Bash(winget search:*)",
+      "Bash(curl:*)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files/Java//**)",
+      "Bash(where java:*)",
+      "Bash(reg query:*)"
+    ]
+  }
+}

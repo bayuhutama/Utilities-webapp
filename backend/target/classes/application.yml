@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+utilkit:
+  cors:
+    allowed-origins: "http://localhost:5173,http://localhost:4173"
+  libreoffice:
+    # Optional: set explicit path if LibreOffice is not in a standard location
+    # path: "C:/Program Files/LibreOffice/program/soffice.exe"
+    path: ""

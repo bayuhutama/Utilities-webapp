@@ -1,0 +1,8 @@
+# Maven build output
+backend/target/
+
+# Local tool configs
+.claude/settings.local.json
+
+# IDE (optional, depends on team)
+.vscode/

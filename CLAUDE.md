@@ -1,6 +1,6 @@
 # UtilKit — Developer Utilities Web App
 
-A local-only utilities app for common developer tasks. Files never leave the machine except for PDF compression, which is processed by the local backend.
+A local-only utilities app for common developer tasks. Files never leave the machine except for PDF compression, which is processed by the local backend. Everything else runs entirely client-side.
 
 ## Project Structure
 
@@ -47,21 +47,11 @@ npm run preview    # preview production build
 
 ## Backend (`backend/`)
 
-**Stack:** Spring Boot 3.2, Java 17, Maven, JODConverter 4.4.7
+**Stack:** Spring Boot 3.2, Java 17, Maven, PDFBox 3.0
 
-**Purpose:** Handles PDF↔DOCX conversion and PDF compression. Everything else is client-side.
-
-**Requires LibreOffice installed locally.** JODConverter auto-detects it.
-If LibreOffice is in a non-default path, set in `application.yml`:
-```yaml
-jodconverter:
-  local:
-    office-home: "C:/Program Files/LibreOffice"
-```
+**Purpose:** Handles PDF compression only. Everything else is client-side.
 
 **Endpoints:**
-- `POST /api/convert/pdf-to-docx` — multipart `file` (PDF) → returns DOCX bytes
-- `POST /api/convert/docx-to-pdf` — multipart `file` (DOCX/DOC) → returns PDF bytes
 - `POST /api/pdf/compress` — multipart `file` (PDF) + optional `quality` (int, default 65) → returns compressed PDF bytes
 
 **Source layout:**
@@ -69,9 +59,7 @@ jodconverter:
 src/main/java/com/utilkit/backend/
   BackendApplication.java
   config/CorsConfig.java               CORS for localhost:5173
-  controller/ConvertController.java    PDF↔DOCX conversion
   controller/PdfController.java        PDF compression
-  service/ConversionService.java
   service/PdfCompressionService.java
 ```
 
@@ -89,6 +77,6 @@ $env:JAVA_HOME = "C:\Program Files\Java\jdk-17.0.17"
 ## Key Design Decisions
 
 - **Client-side by default** — PDF merge, image compression, text diff, beautify, and Base64 never send data to any server.
-- **Backend for conversion and compression** — LibreOffice via JODConverter handles PDF↔DOCX; `PdfCompressionService` re-encodes PDF pages as compressed JPEG images.
+- **Backend only for PDF compression** — `PdfCompressionService` re-encodes PDF pages as compressed JPEG images via PDFBox.
 - **No auth, no persistence** — fully stateless, local dev tool only.
 - **Dark mode** — toggled via `document.documentElement.classList.toggle("dark")`, persists per session only.

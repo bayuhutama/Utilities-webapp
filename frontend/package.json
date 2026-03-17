@@ -34,6 +34,12 @@
     "sql-formatter": "^15.7.2",
     "tailwind-merge": "^3.5.0"
   },
+  "engines": {
+    "node": ">=24.14.0"
+  },
+  "overrides": {
+    "dompurify": "^3.3.3"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@types/react": "^19.2.14",

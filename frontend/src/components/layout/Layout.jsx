@@ -1,30 +1,31 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Link, Outlet } from "react-router-dom";
 import {
-  FilePlus2, FileOutput, AlignLeft, Code2, Moon, Sun, Menu, X
+  FilePlus2, FileDown, ImageDown, AlignLeft, Code2, Moon, Sun, Menu, X, Lock
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { to: "/pdf-merge", icon: FilePlus2, label: "PDF Merge", desc: "Combine PDFs" },
-  { to: "/pdf-convert", icon: FileOutput, label: "PDF Convert", desc: "PDF ↔ DOCX" },
-  { to: "/text-diff", icon: AlignLeft, label: "Text Diff", desc: "Compare text" },
-  { to: "/text-beautify", icon: Code2, label: "Beautify", desc: "Format & minify" },
+  { to: "/pdf-merge",      icon: FilePlus2,  label: "PDF Merge",      desc: "Combine PDFs" },
+  { to: "/compress-pdf",   icon: FileDown,   label: "Compress PDF",   desc: "Reduce PDF size" },
+  { to: "/compress-image", icon: ImageDown,  label: "Compress Image", desc: "Reduce image size" },
+  { to: "/text-diff",      icon: AlignLeft,  label: "Text Diff",      desc: "Compare text" },
+  { to: "/text-beautify",  icon: Code2,      label: "Beautify",       desc: "Format & minify" },
+  { to: "/base64",         icon: Lock,       label: "Base64",         desc: "Encode & decode" },
 ];
 
 export default function Layout() {
-  const [dark, setDark] = useState(() => {
-    if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark");
-    }
-    return false;
-  });
+  const [dark, setDark] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleDark = () => {
-    document.documentElement.classList.toggle("dark");
-    setDark((d) => !d);
+    const next = !dark;
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+    setDark(next);
   };
 
   return (
@@ -46,9 +47,9 @@ export default function Layout() {
         )}
       >
         <div className="flex items-center justify-between px-4 h-14 border-b border-border">
-          <span className="font-bold text-lg text-foreground">
+          <Link to="/" className="font-bold text-lg text-foreground hover:opacity-80 transition-opacity">
             <span className="text-primary">Util</span>Kit
-          </span>
+          </Link>
           <button className="lg:hidden" onClick={() => setSidebarOpen(false)}>
             <X className="h-5 w-5" />
           </button>
@@ -96,9 +97,9 @@ export default function Layout() {
           <button onClick={() => setSidebarOpen(true)}>
             <Menu className="h-5 w-5" />
           </button>
-          <span className="font-bold text-foreground">
+          <Link to="/" className="font-bold text-foreground hover:opacity-80 transition-opacity">
             <span className="text-primary">Util</span>Kit
-          </span>
+          </Link>
           <div className="ml-auto">
             <Button variant="ghost" size="icon" onClick={toggleDark}>
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

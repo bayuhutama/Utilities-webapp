@@ -1,12 +1,12 @@
 # UtilKit — Developer Utilities Web App
 
-A local-only utilities app for common developer tasks. Files never leave the machine except for PDF conversion, which is processed by the local backend.
+A local-only utilities app for common developer tasks. Files never leave the machine except for PDF compression, which is processed by the local backend.
 
 ## Project Structure
 
 ```
 Utilities-webapp/
-  frontend/   React 18 + Vite + Tailwind CSS + Radix UI
+  frontend/   React 19 + Vite + Tailwind CSS + Radix UI
   backend/    Spring Boot 3.2 + Java 17
 ```
 
@@ -23,9 +23,11 @@ src/
   components/layout/   Layout.jsx — sidebar + dark mode toggle
   features/
     pdf-merge/         Client-side PDF merging (pdf-lib + @dnd-kit)
-    pdf-convert/       Calls backend API for PDF↔DOCX conversion
+    compress-pdf/      Calls backend API to compress PDF (re-encodes pages as JPEG)
+    compress-image/    Client-side image compression
     text-diff/         Word-level side-by-side diff (diff package)
     text-beautify/     Monaco editor + prettier + sql-formatter
+    base64/            Auto-detecting Base64 encode/decode for text and images
   pages/               Home.jsx
   lib/utils.js         cn() and formatBytes() helpers
 ```
@@ -47,7 +49,7 @@ npm run preview    # preview production build
 
 **Stack:** Spring Boot 3.2, Java 17, Maven, JODConverter 4.4.7
 
-**Purpose:** Handles PDF↔DOCX conversion only. Everything else is client-side.
+**Purpose:** Handles PDF↔DOCX conversion and PDF compression. Everything else is client-side.
 
 **Requires LibreOffice installed locally.** JODConverter auto-detects it.
 If LibreOffice is in a non-default path, set in `application.yml`:
@@ -60,14 +62,17 @@ jodconverter:
 **Endpoints:**
 - `POST /api/convert/pdf-to-docx` — multipart `file` (PDF) → returns DOCX bytes
 - `POST /api/convert/docx-to-pdf` — multipart `file` (DOCX/DOC) → returns PDF bytes
+- `POST /api/pdf/compress` — multipart `file` (PDF) + optional `quality` (int, default 65) → returns compressed PDF bytes
 
 **Source layout:**
 ```
 src/main/java/com/utilkit/backend/
   BackendApplication.java
-  config/CorsConfig.java          CORS for localhost:5173
-  controller/ConvertController.java
+  config/CorsConfig.java               CORS for localhost:5173
+  controller/ConvertController.java    PDF↔DOCX conversion
+  controller/PdfController.java        PDF compression
   service/ConversionService.java
+  service/PdfCompressionService.java
 ```
 
 **Commands (PowerShell on Windows):**
@@ -83,7 +88,7 @@ $env:JAVA_HOME = "C:\Program Files\Java\jdk-17.0.17"
 
 ## Key Design Decisions
 
-- **Client-side by default** — PDF merge, text diff, and beautify never send data to any server.
-- **Backend only for conversion** — LibreOffice via JODConverter is the only way to achieve high-fidelity PDF↔DOCX conversion.
+- **Client-side by default** — PDF merge, image compression, text diff, beautify, and Base64 never send data to any server.
+- **Backend for conversion and compression** — LibreOffice via JODConverter handles PDF↔DOCX; `PdfCompressionService` re-encodes PDF pages as compressed JPEG images.
 - **No auth, no persistence** — fully stateless, local dev tool only.
 - **Dark mode** — toggled via `document.documentElement.classList.toggle("dark")`, persists per session only.

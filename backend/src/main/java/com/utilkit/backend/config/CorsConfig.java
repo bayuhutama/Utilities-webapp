@@ -21,6 +21,7 @@ public class CorsConfig {
                         .allowedOrigins(allowedOrigins.split(","))
                         .allowedMethods("GET", "POST", "OPTIONS")
                         .allowedHeaders("*")
+                        .exposedHeaders("X-Compression-Result", "X-Original-Size", "X-Compressed-Size")
                         .maxAge(3600);
             }
         };

@@ -1,0 +1,8 @@
+com\utilkit\backend\BackendApplication.class
+com\utilkit\backend\config\CorsConfig$1.class
+com\utilkit\backend\controller\ConvertController.class
+com\utilkit\backend\config\CorsConfig.class
+com\utilkit\backend\controller\PdfController.class
+com\utilkit\backend\service\PdfCompressionService$CompressionResult.class
+com\utilkit\backend\service\ConversionService.class
+com\utilkit\backend\service\PdfCompressionService.class

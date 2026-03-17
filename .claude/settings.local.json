@@ -9,7 +9,21 @@
       "Read(//c/Program Files/**)",
       "Read(//c/Program Files/Java//**)",
       "Bash(where java:*)",
-      "Bash(reg query:*)"
+      "Bash(reg query:*)",
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(npm audit:*)",
+      "Bash(node -e \":*)",
+      "Bash(npm view:*)",
+      "Bash(node -e \"const d=require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\); const v=JSON.parse\\(d\\); console.log\\(''''latest:'''', v[v.length-1]\\); console.log\\(''''3.3.x+:'''', v.filter\\(x=>x>=''''3.3.2''''\\)\\)\")",
+      "Bash(where soffice:*)",
+      "Read(//c/Program Files \\(x86\\)/LibreOffice/program/**)",
+      "Bash(ls \"C:/Program Files \\(x86\\)/LibreOffice/program/soffice.exe\")",
+      "Bash(npm uninstall:*)",
+      "Bash(./mvnw.cmd compile:*)",
+      "Bash(JAVA_HOME=\"C:/Program Files/Java/jdk-17.0.17\" cd \"C:/Users/bayuhutama/Project/Claude/Utilities-webapp/backend\")",
+      "Bash(JAVA_HOME=\"C:/Program Files/Java/jdk-17.0.17\" ./mvnw.cmd compile)",
+      "Bash(JAVA_HOME=\"C:/Program Files/Java/jdk-17.0.17\" ./mvnw.cmd -f \"C:/Users/bayuhutama/Project/Claude/Utilities-webapp/backend/pom.xml\" clean compile 2>&1)"
     ]
   }
 }

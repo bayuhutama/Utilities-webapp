@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FilePlus2, FileOutput, AlignLeft, Code2, ArrowRight } from "lucide-react";
+import { FilePlus2, FileDown, ImageDown, AlignLeft, Code2, Lock, ArrowRight } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 
 const tools = [
@@ -12,12 +12,20 @@ const tools = [
     bg: "bg-violet-500/10",
   },
   {
-    to: "/pdf-convert",
-    icon: FileOutput,
-    title: "PDF Convert",
-    description: "Convert PDF to DOCX or DOCX to PDF with high fidelity.",
-    color: "text-blue-500",
-    bg: "bg-blue-500/10",
+    to: "/compress-pdf",
+    icon: FileDown,
+    title: "Compress PDF",
+    description: "Reduce PDF file size by re-encoding pages as compressed JPEG images.",
+    color: "text-sky-500",
+    bg: "bg-sky-500/10",
+  },
+  {
+    to: "/compress-image",
+    icon: ImageDown,
+    title: "Compress Image",
+    description: "Reduce image file size by adjusting quality, dimensions, and format.",
+    color: "text-rose-500",
+    bg: "bg-rose-500/10",
   },
   {
     to: "/text-diff",
@@ -34,6 +42,14 @@ const tools = [
     description: "Format or minify JSON, XML, HTML, CSS, JS, SQL, TypeScript.",
     color: "text-orange-500",
     bg: "bg-orange-500/10",
+  },
+  {
+    to: "/base64",
+    icon: Lock,
+    title: "Base64",
+    description: "Encode plain text to Base64 or decode Base64 back to text.",
+    color: "text-teal-500",
+    bg: "bg-teal-500/10",
   },
 ];
 

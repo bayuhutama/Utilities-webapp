@@ -2,6 +2,28 @@
 
 A local-only utilities app for common developer tasks. All processing happens client-side in the browser — files never leave your machine, except for PDF compression which is handled by the local Spring Boot backend.
 
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Frontend](#frontend)
+  - [Source layout](#source-layout)
+  - [Path alias](#path-alias)
+  - [API proxy](#api-proxy)
+  - [Commands](#commands)
+  - [Key dependencies](#key-dependencies)
+- [Backend](#backend)
+  - [API endpoints](#api-endpoints)
+  - [Source layout](#source-layout-1)
+  - [Commands](#commands-1)
+  - [Running the built JAR](#running-the-built-jar)
+- [Design Decisions](#design-decisions)
+- [Troubleshooting](#troubleshooting)
+
+---
+
 ## Features
 
 | Tool | Route | Processing |
